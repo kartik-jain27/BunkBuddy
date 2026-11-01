@@ -1,0 +1,26 @@
+{
+  "name": "bunkwise",
+  "version": "1.0.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "test": "vitest run --globals"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "expo": "^58.0.22",
+    "expo-constants": "~58.0.14",
+    "expo-linking": "~58.0.15",
+    "expo-router": "~58.0.29",
+    "expo-status-bar": "~58.0.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-safe-area-context": "~5.10.1",
+    "react-native-screens": "~4.30.1"
+  }
+}
