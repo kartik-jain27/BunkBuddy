@@ -29,10 +29,10 @@ If the spec is silent or ambiguous, **ask the owner. Do not invent features.**
 
 ## 3. Stack
 
-- Expo **SDK 56 — do not upgrade the SDK or React Native** (pinned for Expo Go compatibility). React Native, TypeScript (`strict: true`), `expo-router`.
+- Expo **SDK 58 — do not upgrade the SDK or React Native** (pinned for Expo Go compatibility). React Native, TypeScript (`strict: true`), `expo-router`.
 - Local DB: `expo-sqlite`. IDs: `expo-crypto` `randomUUID()`.
 - Backend: Supabase (Auth + Postgres + Edge Function). Client: `@supabase/supabase-js`.
-- Tests: Jest with `jest-expo` (pure-logic tests need no native mocks).
+- Tests: Vitest (`npm test`, runs with --globals).
 - **Add no new dependency without asking the owner first.** When you do add one, use `npx expo install <pkg>` so the version matches the SDK.
 - State: React Context + small hooks over the repository layer. No Redux, no MobX, no extra state library.
 
