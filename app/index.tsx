@@ -1,5 +1,7 @@
+import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { Button } from '../src/components/Button';
 import { useSubjects } from '../src/hooks/useSubjects';
 
 // TEMPORARY M2 dev check. M3 replaces this screen with the real Subjects tab.
@@ -11,6 +13,7 @@ const DEV_SUBJECT = {
 };
 
 export default function Home() {
+  const router = useRouter();
   const { subjects, loading, error, createSubject } = useSubjects();
 
   return (
@@ -35,6 +38,12 @@ export default function Home() {
           {subject.name}: {subject.present} / {subject.total}
         </Text>
       ))}
+
+      <Button
+        label="Open UI kit (dev)"
+        variant="secondary"
+        onPress={() => router.push('/dev/components')}
+      />
     </View>
   );
 }
