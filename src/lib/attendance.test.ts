@@ -1,5 +1,6 @@
 import {
   canBunk,
+  absentCount,
   deriveCounts,
   formatPercentage,
   isValidTarget,
@@ -56,6 +57,13 @@ describe('sumCounts', () => {
   });
   it('empty list is zero', () => {
     expect(sumCounts([])).toEqual(c(0, 0));
+  });
+});
+
+describe('absentCount', () => {
+  it('returns classes that occurred without a present mark', () => {
+    expect(absentCount(c(23, 29))).toBe(6);
+    expect(absentCount(c(0, 0))).toBe(0);
   });
 });
 

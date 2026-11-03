@@ -1,6 +1,22 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 import { useColorScheme } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import {
+  Newsreader_400Regular,
+  Newsreader_400Regular_Italic,
+  Newsreader_500Medium,
+  Newsreader_600SemiBold,
+  Newsreader_700Bold,
+  Newsreader_800ExtraBold,
+  useFonts as useNewsreaderFonts,
+} from '@expo-google-fonts/newsreader';
+import {
+  PlusJakartaSans_400Regular,
+  PlusJakartaSans_500Medium,
+  PlusJakartaSans_600SemiBold,
+  PlusJakartaSans_700Bold,
+  useFonts as useJakartaFonts,
+} from '@expo-google-fonts/plus-jakarta-sans';
 
 import {
   darkTheme,
@@ -25,6 +41,20 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children, initialMode = 'system' }: ThemeProviderProps) {
+  const [newsreaderLoaded] = useNewsreaderFonts({
+    Newsreader_400Regular,
+    Newsreader_400Regular_Italic,
+    Newsreader_500Medium,
+    Newsreader_600SemiBold,
+    Newsreader_700Bold,
+    Newsreader_800ExtraBold,
+  });
+  const [jakartaLoaded] = useJakartaFonts({
+    PlusJakartaSans_400Regular,
+    PlusJakartaSans_500Medium,
+    PlusJakartaSans_600SemiBold,
+    PlusJakartaSans_700Bold,
+  });
   const systemScheme = useColorScheme();
   const [mode, setModeState] = useState<ThemeMode>(initialMode);
 
@@ -39,6 +69,8 @@ export function ThemeProvider({ children, initialMode = 'system' }: ThemeProvide
     () => ({ ...theme, mode, setMode }),
     [theme, mode, setMode],
   );
+
+  if (!newsreaderLoaded || !jakartaLoaded) return null;
 
   return (
     <ThemeContext.Provider value={value}>

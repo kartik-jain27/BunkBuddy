@@ -10,7 +10,9 @@ import {
   createSubject as createSubjectRecord,
   deleteSubjectCascade,
   listSubjectsWithCounts,
+  reorderSubjects as reorderSubjectRecords,
   restore,
+  seedDemoSubjectsIfEmpty,
   updateSubject as updateSubjectRecord,
   type CreateSubjectInput,
   type SubjectPatch,
@@ -26,6 +28,8 @@ export interface UseSubjectsResult {
   updateSubject: (id: string, patch: SubjectPatch) => Promise<void>;
   deleteSubject: (id: string) => Promise<DeleteToken>;
   restoreSubject: (token: DeleteToken) => Promise<void>;
+  seedDemoSubjects: () => Promise<void>;
+  reorderSubjects: (ids: ReadonlyArray<string>) => Promise<void>;
 }
 
 export function useSubjects(): UseSubjectsResult {
@@ -100,6 +104,16 @@ export function useSubjects(): UseSubjectsResult {
     [runWrite],
   );
 
+  const seedDemoSubjects = useCallback(
+    () => runWrite(() => seedDemoSubjectsIfEmpty(DEMO_SUBJECTS)),
+    [runWrite],
+  );
+
+  const reorderSubjects = useCallback(
+    (ids: ReadonlyArray<string>) => runWrite(() => reorderSubjectRecords(ids)),
+    [runWrite],
+  );
+
   return {
     subjects,
     loading,
@@ -109,5 +123,14 @@ export function useSubjects(): UseSubjectsResult {
     updateSubject,
     deleteSubject,
     restoreSubject,
+    seedDemoSubjects,
+    reorderSubjects,
   };
 }
+
+const DEMO_SUBJECTS = [
+  { name: 'Networks', color: '#B3261E', initialPresent: 20, initialTotal: 28 },
+  { name: 'DBMS', color: '#1C4A3B', initialPresent: 23, initialTotal: 29 },
+  { name: 'DBMS Lab', color: '#255E4B', initialPresent: 18, initialTotal: 20 },
+  { name: 'Data Structures C++', color: '#1C4A3B', initialPresent: 23, initialTotal: 28 },
+] as const;

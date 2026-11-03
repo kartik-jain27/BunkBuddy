@@ -25,6 +25,13 @@ export type SubjectPatch = Partial<
   Pick<Subject, 'name' | 'color' | 'initialPresent' | 'initialTotal'>
 >;
 
+export interface DemoSubjectInput {
+  name: string;
+  color: string;
+  initialPresent: number;
+  initialTotal: number;
+}
+
 const SUBJECT_COLUMNS = `
   id, name, color, initial_present, initial_total, sort_order, created_at, updated_at
 `;
@@ -72,6 +79,51 @@ export async function createSubject(input: CreateSubjectInput): Promise<Subject>
     throw new Error('Could not read the subject that was just created.');
   }
   return mapSubjectRow(row);
+}
+
+export async function seedDemoSubjectsIfEmpty(
+  inputs: ReadonlyArray<DemoSubjectInput>,
+): Promise<void> {
+  const db = getDatabase();
+  const existing = await db.getFirstAsync<{ count: number }>(
+    'SELECT COUNT(*) AS count FROM subjects WHERE deleted_at IS NULL',
+  );
+  if (!existing || existing.count > 0) return;
+
+  const now = nowIso();
+  await db.withTransactionAsync(async () => {
+    for (const [index, input] of inputs.entries()) {
+      await db.runAsync(
+        `INSERT INTO subjects
+           (id, name, color, initial_present, initial_total, sort_order, created_at, updated_at, dirty)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)`,
+        [
+          randomUUID(),
+          input.name,
+          input.color,
+          input.initialPresent,
+          input.initialTotal,
+          index,
+          now,
+          now,
+        ],
+      );
+    }
+  });
+}
+
+export async function reorderSubjects(ids: ReadonlyArray<string>): Promise<void> {
+  const db = getDatabase();
+  const now = nowIso();
+
+  await db.withTransactionAsync(async () => {
+    for (const [index, id] of ids.entries()) {
+      await db.runAsync(
+        'UPDATE subjects SET sort_order = ?, updated_at = ?, dirty = 1 WHERE id = ? AND deleted_at IS NULL',
+        [index, now, id],
+      );
+    }
+  });
 }
 
 export async function updateSubject(id: string, patch: SubjectPatch): Promise<void> {

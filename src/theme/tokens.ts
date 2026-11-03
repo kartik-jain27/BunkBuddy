@@ -13,6 +13,8 @@ export interface ThemeColors {
   secondary: string;
   secondarySoft: string;
   onSecondary: string;
+  lab: string;
+  labSoft: string;
   background: string;
   surface: string;
   surfaceMuted: string;
@@ -29,6 +31,8 @@ export interface ThemeColors {
   onWarning: string;
   danger: string;
   dangerSoft: string;
+  dangerBorder: string;
+  safeBorder: string;
   onDanger: string;
   inverseSurface: string;
   inverseText: string;
@@ -36,32 +40,36 @@ export interface ThemeColors {
 }
 
 export const lightColors: ThemeColors = {
-  primary: '#7C3AED',
-  primarySoft: '#EDE9FE',
+  primary: '#1C4A3B',
+  primarySoft: '#E3ECE4',
   onPrimary: '#FFFFFF',
-  secondary: '#0F766E',
-  secondarySoft: '#CCFBF1',
+  secondary: '#98511D',
+  secondarySoft: '#FCEDDD',
   onSecondary: '#FFFFFF',
-  background: '#F7F5FB',
+  lab: '#7248C4',
+  labSoft: '#F0E9FF',
+  background: '#FAF7F2',
   surface: '#FFFFFF',
-  surfaceMuted: '#F1EEF8',
+  surfaceMuted: '#F4EDE2',
   surfaceElevated: '#FFFFFF',
-  text: '#1D1A24',
-  textMuted: '#6B6479',
-  border: '#E4DFEE',
+  text: '#1A1A1A',
+  textMuted: '#6B6862',
+  border: '#EDE7DC',
   overlay: 'rgba(23, 16, 35, 0.48)',
-  safe: '#15803D',
-  safeSoft: '#DCFCE7',
+  safe: '#1C4A3B',
+  safeSoft: '#E3ECE4',
   onSafe: '#FFFFFF',
-  warning: '#B45309',
-  warningSoft: '#FEF3C7',
+  warning: '#98511D',
+  warningSoft: '#FCEDDD',
   onWarning: '#FFFFFF',
-  danger: '#B91C1C',
-  dangerSoft: '#FEE2E2',
+  danger: '#B3261E',
+  dangerSoft: '#FCEBE9',
+  dangerBorder: '#F5C7C2',
+  safeBorder: '#D2DFD4',
   onDanger: '#FFFFFF',
-  inverseSurface: '#211D29',
-  inverseText: '#F7F5FB',
-  inverseAccent: '#C4B5FD',
+  inverseSurface: '#14382C',
+  inverseText: '#FAF7F2',
+  inverseAccent: '#BFD3C1',
 };
 
 export const darkColors: ThemeColors = {
@@ -71,6 +79,8 @@ export const darkColors: ThemeColors = {
   secondary: '#2DD4BF',
   secondarySoft: '#10312D',
   onSecondary: '#042F2E',
+  lab: '#C4B5FD',
+  labSoft: '#2E2450',
   background: '#0F0D13',
   surface: '#191620',
   surfaceMuted: '#241F2E',
@@ -87,6 +97,8 @@ export const darkColors: ThemeColors = {
   onWarning: '#3B2600',
   danger: '#F87171',
   dangerSoft: '#3B1417',
+  dangerBorder: '#6E2A2A',
+  safeBorder: '#28533A',
   onDanger: '#450A0A',
   inverseSurface: '#2C2638',
   inverseText: '#F5F2FA',
@@ -117,6 +129,8 @@ export const fontSize = {
   lg: 18,
   xl: 22,
   xxl: 28,
+  subject: 24,
+  hero: 34,
   display: 40,
 } as const;
 
@@ -158,7 +172,13 @@ export interface AppTheme {
   lineHeight: typeof lineHeight;
   fontWeight: typeof fontWeight;
   layout: typeof layout;
+  numberFontFamily: string;
+  headlineFontFamily: string;
 }
+
+export const numberFontFamily = 'Newsreader';
+export const headlineFontFamily = 'Newsreader_700Bold';
+export const bodyFontFamily = 'PlusJakartaSans_400Regular';
 
 export const lightTheme: AppTheme = {
   scheme: 'light',
@@ -170,6 +190,8 @@ export const lightTheme: AppTheme = {
   lineHeight,
   fontWeight,
   layout,
+  numberFontFamily,
+  headlineFontFamily,
 };
 
 export const darkTheme: AppTheme = {
@@ -182,6 +204,8 @@ export const darkTheme: AppTheme = {
   lineHeight,
   fontWeight,
   layout,
+  numberFontFamily,
+  headlineFontFamily,
 };
 
 /** Resolve the palette for a mode, treating a missing system value as light. */

@@ -6,7 +6,7 @@ import { useTheme } from '../theme/ThemeProvider';
 const RISK_LABELS: Record<RiskLevel, string> = {
   safe: 'Safe',
   warning: 'At risk',
-  danger: 'Below target',
+  danger: 'Critical',
   'no-data': 'No data',
 };
 

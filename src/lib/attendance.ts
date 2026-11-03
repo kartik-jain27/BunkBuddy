@@ -87,6 +87,12 @@ export function sumCounts(list: ReadonlyArray<Counts>): Counts {
   return { present, total };
 }
 
+/** Number of occurred classes that were not attended. */
+export function absentCount(c: Counts): number {
+  assertCounts(c);
+  return c.total - c.present;
+}
+
 // ---------------------------------------------------------------------------
 // Percentage
 // ---------------------------------------------------------------------------

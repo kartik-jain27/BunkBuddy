@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "BunkWise",
-    "slug": "bunkwise",
-    "scheme": "bunkwise",
+    "name": "BunkBuddy",
+    "slug": "bunkbuddy",
+    "scheme": "bunkbuddy",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
